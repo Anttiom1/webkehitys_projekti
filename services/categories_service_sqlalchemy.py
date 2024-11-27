@@ -1,3 +1,4 @@
+from dtos.Categories import AddCategoryReq
 from services.categories_service_base import CategoriesServiceBase
 from models import Categories, Db
 from custom_exceptions.not_found import NotFoundexception
@@ -24,5 +25,19 @@ class CategoriesServiceSqlAlchemy(CategoriesServiceBase):
         except Exception as e:
             self.context.rollback()
             raise e
+        
+    def add_category(self, addCategoryReq: AddCategoryReq, user_id:int) -> Categories:
+        new_category = Categories(
+            Name=addCategoryReq.name,
+            UserId= user_id,
+            Description=addCategoryReq.description
+        )
+
+        self.context.add(new_category)
+        self.context.commit()
+
+        self.context.refresh(new_category)
+
+        return new_category
         
         

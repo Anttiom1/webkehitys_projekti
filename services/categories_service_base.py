@@ -1,5 +1,6 @@
 import abc
 
+from dtos.Categories import AddCategoryReq
 from models import Categories
 
 
@@ -11,3 +12,7 @@ class CategoriesServiceBase(abc.ABC):
     @abc.abstractmethod
     def update_category(self, id, updateReq) -> Categories:
         raise NotImplementedError()
+    
+    @abc.abstractmethod
+    def add_category(self, addCategoryReq: AddCategoryReq, user_id: int):
+        raise NotImplementedError

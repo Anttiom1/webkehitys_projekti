@@ -10,3 +10,7 @@ class CategoriesRes(BaseModel):
 class CategoryUpdateReq(BaseModel):
     name: str
     description: str
+    
+class AddCategoryReq(BaseModel):
+    name: str
+    description: str

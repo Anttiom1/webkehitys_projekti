@@ -23,3 +23,8 @@ async def create_user(user_service: UserService, req: AddUserReq, res_handler: U
 @router.get('/account')
 async def get_account(logged_in_user: LoggedInUser, res_handler: UserResResponseHandler) -> UserRes:
     return res_handler.send(logged_in_user)
+
+@router.get("/{user_id}")
+async def get_account_by_id(service: UserService, id: int, mapper: ResponseMapper):
+    user = service.get_user_by_id(id)
+    return mapper.map("user_dto", user)

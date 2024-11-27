@@ -8,4 +8,4 @@ router = APIRouter(prefix="/api/auth", tags=["auth"])
 @router.post("/login")
 async def login(service: UserService, req: LoginReq, token: TokenTool) -> LoginRes:
     token = service.login(req, token)
-    return {"token": token}
+    return LoginRes(token=token)

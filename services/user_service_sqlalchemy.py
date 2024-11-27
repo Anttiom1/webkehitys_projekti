@@ -38,7 +38,7 @@ class UserServiceSQLAlchemy(UserServiceBase):
             raise NotFoundexception('user not found')
 
         if bcrypt.checkpw(req.password.encode('utf-8'), user.HashedPassword):
-            return token.create_token({'sub': user.Id, 'username': user.UserName, 'iat': datetime.datetime.now().timestamp(),
+            return token.create_token({'sub': str(user.Id), 'username': user.UserName, 'iat': datetime.datetime.now().timestamp(),
                                     'exp': datetime.datetime.now().timestamp() + (3600 * 24 * 7)})
         raise NotFoundexception('user not found')
 
@@ -46,4 +46,4 @@ class UserServiceSQLAlchemy(UserServiceBase):
         return self.context.query(models.Users).all()
     
     def get_user_by_id(self, user_id: int) -> Users:
-        return self.context.query(Users).filter(Users.Id == user_id).first()
+        return self.context.query(models.Users).filter(models.Users.Id == user_id).first()

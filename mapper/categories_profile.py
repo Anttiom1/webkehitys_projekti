@@ -6,22 +6,21 @@ from pydantic import BaseModel
 import models
 from mapper.base_profile import BaseProfile
 
-class ProductsProfile(BaseProfile):
+
+class CategoriesProfile(BaseProfile):
     exclude = []
 
     def __init__(self, dst_type: Type[BaseModel]):
         self.dst_type = dst_type
 
-    def map(self, data: models.Products):
+    def map(self, data: models.Categories):
         significant_vars = self._get_significant_vars(data)
         products_dto = self.dst_type(**significant_vars)
         return products_dto
 
-    def map_list(self, data: List[models.Products]):
+    def map_list(self, data: List[models.Categories]):
         return [self.map(item) for item in data]
 
-# Asked AI to assist mapping SQLAlchemy models to Pydantic DTOs while handling naming convention differences. 
-# The `_get_significant_vars` method was updated to convert PascalCase field names from the database model to snake_case for compatibility with the Pydantic DTO.
     def _get_significant_vars(self, data):
         significant_vars = {}
         for key, value in vars(data).items():

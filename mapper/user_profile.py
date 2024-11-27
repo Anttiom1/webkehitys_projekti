@@ -6,6 +6,7 @@ from pydantic import BaseModel
 import models
 from mapper.base_profile import BaseProfile
 
+#Open esimerkistä
 
 class UserProfile(BaseProfile):
     # Miksi exclude on __init__:n ulkopuolella?

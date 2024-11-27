@@ -6,8 +6,8 @@ from services.products_service_sqlalchemy import ProductsServiceSqlAlchemy
 from models import Db
 
 
-def init_products_service(db: Db):
-   return ProductsServiceSqlAlchemy(db)
+def init_products_service(context: Db):
+   return ProductsServiceSqlAlchemy(context)
 
 
 ProductsService = Annotated[ProductsServiceBase, Depends(init_products_service)]

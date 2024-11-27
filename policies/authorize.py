@@ -19,7 +19,7 @@ def get_logged_in_user(user_service: UserService, token: TokenTool, req: Request
     if header_parts[0] != 'Bearer':
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
     claims = token.verify(header_parts[1])
-    logged_in_user = user_service.get_user_by_id(int(claims['sub']))
+    logged_in_user = user_service.get_user_by_id(claims['sub'])
     if logged_in_user is None:
         raise HTTPException(status_code=status.HTTP_405_METHOD_NOT_ALLOWED)
     return logged_in_user

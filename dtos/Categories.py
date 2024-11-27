@@ -6,3 +6,7 @@ class CategoriesRes(BaseModel):
     name: str
     user_id: int
     description: str
+    
+class CategoryUpdateReq(BaseModel):
+    name: str
+    description: str

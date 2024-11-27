@@ -19,7 +19,7 @@ async def not_found(request: Request, exc: NotFoundexception):
     raise HTTPException(status_code=404, detail=str(exc))
 
 @app.exception_handler(UserNameTakenException)
-async def not_found(request: Request, exc: NotFoundexception):
+async def usernametaken(request: Request, exc: NotFoundexception):
     raise HTTPException(status_code=400, detail=str(exc))
 
 @app.middleware('http')

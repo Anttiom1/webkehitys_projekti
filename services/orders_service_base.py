@@ -18,3 +18,7 @@ class OrdersServiceBase(abc.ABC):
     @abc.abstractmethod
     def delete_users_cart(self, customer_id, state: str) -> Orders:
         raise NotImplementedError()
+    
+    @abc.abstractmethod
+    def confirm_order(self, order_id: int, handler_id:int) -> Orders:
+        raise NotImplementedError()

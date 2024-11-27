@@ -36,3 +36,18 @@ class OrdersServiceSqlAlchemy(OrdersServiceBase):
         sent_order = self.create_order(customer_id, "ordered-state")
         return sent_order
         
+    def confirm_order(self, order_id: int, handler_id: int) -> Orders:
+        order = self.context.query(Orders).filter(Orders.Id == order_id).first()
+
+        if not order:
+            raise ValueError(f"Order with ID {order_id} does not exist.")
+
+        order.State = "Confirmed"
+        order.ConfirmedDate = datetime.datetime.now()
+        order.HandlerId = handler_id
+
+        self.context.commit()
+
+        self.context.refresh(order)
+
+        return order

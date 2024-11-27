@@ -16,6 +16,8 @@ async def get_all_categories(service: CategoriesService, mapper: ResponseMapper)
 
 @router.patch("/{id}")
 async def update_category(service: CategoriesService, id: int, logged_in_user: LoggedInUser, res_handler: UserResResponseHandler, categoryUpdateReq: CategoryUpdateReq):
+    if logged_in_user.Role != "Admin":
+        raise UnauthorizedException()
     service.update_category(id, categoryUpdateReq)
     
 @router.post("/")

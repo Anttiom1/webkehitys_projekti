@@ -1,6 +1,6 @@
 from services.carts_service_base import CartsServiceBase
-from models import Db, OrdersProducts
-
+from models import Db, OrdersProducts, Products
+from custom_exceptions.not_found import NotFoundexception
 
 
 class CartsServiceSqlAlchemy(CartsServiceBase):
@@ -18,4 +18,15 @@ class CartsServiceSqlAlchemy(CartsServiceBase):
         self.context.add(products)
         self.context.commit()
         return products
-
+    
+    def delete_items_from_cart(self, product_id: int, order_id: int) -> OrdersProducts:
+        try:
+            product = self.context.query(OrdersProducts).filter(OrdersProducts.ProductId == product_id, OrdersProducts.OrderId == order_id).first()
+            self.context.delete(product)
+            self.context.commit()
+        except Exception as e:
+            self.context.rollback()
+            raise e
+            
+   
+            

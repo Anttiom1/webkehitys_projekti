@@ -7,3 +7,7 @@ class CartsServiceBase(abc.ABC):
     @abc.abstractmethod
     def add_items_to_cart(self, order_id, product_id: int, unit_amount: int, unit_price) -> OrdersProducts:
         raise NotImplementedError()
+    
+    @abc.abstractmethod
+    def delete_items_from_cart(self, product_id: int, order_id: int) -> OrdersProducts:
+        raise NotImplementedError

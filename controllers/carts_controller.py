@@ -9,7 +9,8 @@ router = APIRouter(prefix="/api/cart", tags=["cart"])
 
 @router.post("/items", status_code=201)
 async def add_item_to_cart(cartsService: CartsService, ordersService: OrdersService, productsService: ProductsService, items: AddItemsToCartReq, logged_in_user: LoggedInUser):
-
+    if logged_in_user is None:
+        raise HTTPException(404, "user not found")
     #check it user already has order
     order = ordersService.get_order_by_id(logged_in_user.Id)
     if order is None:
@@ -19,5 +20,12 @@ async def add_item_to_cart(cartsService: CartsService, ordersService: OrdersServ
     
     products_in_cart = cartsService.add_items_to_cart(order.Id, items.product_id, items.unit_count, product.UnitPrice)
     return products_in_cart
-    
-    
+
+@router.delete("/items/{product_id}")
+async def delete_items_from_cart(cartService: CartsService, ordersService: OrdersService, product_id: int, logged_in_user: LoggedInUser):
+    if logged_in_user is None:
+        raise HTTPException(404, "user not found")
+    order = ordersService.get_order_by_id(logged_in_user.Id)
+    if order is None:
+        raise HTTPException(404, "order not found")
+    cartService.delete_items_from_cart(product_id, order.Id)

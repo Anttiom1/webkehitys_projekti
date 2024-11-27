@@ -32,7 +32,7 @@ async def order_cart(ordersService: OrdersService, logged_in_user: LoggedInUser,
             product_id=item.ProductId
         )
     #Poistetaan ostoskori
-    ordersService.delete_users_cart(logged_in_user.Id, state="cart-state")
+    ordersService.delete_users_order(logged_in_user.Id, state="cart-state")
 
 @router.post("/{order_id}/confirm")
 async def confirm_order(order_id: int, orderService: OrdersService, logged_in_user: LoggedInUser):

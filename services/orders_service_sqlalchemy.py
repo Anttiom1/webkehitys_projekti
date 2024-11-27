@@ -22,7 +22,7 @@ class OrdersServiceSqlAlchemy(OrdersServiceBase):
         order = self.context.query(Orders).filter(Orders.CustomerId == customer_id, Orders.State == state).first()
         return order
     
-    def delete_users_cart(self, customer_id, state: str) -> Orders:
+    def delete_users_order(self, customer_id, state: str) -> Orders:
         try:
             order = self.context.query(Orders).filter(Orders.CustomerId == customer_id, Orders.State == state).first()
             self.context.delete(order)

@@ -40,5 +40,12 @@ class CategoriesServiceSqlAlchemy(CategoriesServiceBase):
         self.context.refresh(new_category)
 
         return new_category
-        
-        
+    
+    def delete_category(self, id: int):
+        try:
+            category = self.context.query(Categories).filter(Categories.Id == id).first()
+            self.context.delete(category)
+            self.context.commit()
+        except Exception as e:
+            self.context.rollback()
+            raise e

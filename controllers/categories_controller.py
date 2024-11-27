@@ -25,3 +25,9 @@ async def add_category(service: CategoriesService, mapper: ResponseMapper, logge
     if logged_in_user.Role != "Admin":
         raise UnauthorizedException()
     service.add_category(addCategoryReq, logged_in_user.Id)
+
+@router.delete("/{id}")
+async def delete_category(id:int, service: CategoriesService, logged_in_user: LoggedInUser):
+    if logged_in_user.Role != "Admin":
+        raise UnauthorizedException()
+    service.delete_category(id)

@@ -23,8 +23,7 @@ class UserServiceSQLAlchemy(UserServiceBase):
         user = models.Users(
             UserName=req.UserName,
             HashedPassword=bcrypt.hashpw(req.Password.encode('utf-8'), bcrypt.gensalt()),
-            Role=req.Role,
-            Xp=0
+            Role=req.Role
         )
 
         user.PasswordSalt = ''.encode('utf-8')

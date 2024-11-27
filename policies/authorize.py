@@ -5,7 +5,7 @@ from starlette import status
 from starlette.requests import Request
 
 import models
-from services.dependencies import UserService
+from services.users_service_factory import UserService
 from tools.dependencies import TokenTool
 
 

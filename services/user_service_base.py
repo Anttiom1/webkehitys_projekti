@@ -1,5 +1,4 @@
 import abc
-from typing import List
 
 from dtos.Users import AddUserReq, LoginReq
 from models import Users
@@ -7,7 +6,7 @@ from tools.token_tool_base import TokenToolBase
 
 class UserServiceBase(abc.ABC):
     @abc.abstractmethod
-    def get_all(self) -> List[Users]:
+    def get_all(self) -> list[Users]:
         raise NotImplementedError()
 
     @abc.abstractmethod

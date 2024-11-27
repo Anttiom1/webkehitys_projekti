@@ -1,18 +1,14 @@
-from typing import List
 from fastapi import APIRouter, HTTPException
 from dtos.Users import AddUserReq, UserRes
 from mapper.mapper import ResponseMapper
-from models import Db
-from services.dependencies import UserService
+from services.users_service_factory import UserService
 from policies.authorize import LoggedInUser
-
-import models
-from response_handlers.user_res_handler import UserResListResponseHandler, UserResResponseHandler
+from response_handlers.user_res_handler import UserResResponseHandler
 
 router = APIRouter(prefix="/api/users", tags=["users"])
 
 @router.get("/")
-def get_all_users(service: UserService, mapper: ResponseMapper) -> List[UserRes]:
+def get_all_users(service: UserService, mapper: ResponseMapper) -> list[UserRes]:
     users = service.get_all()
     return mapper.map('user_dto', users)
 

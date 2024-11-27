@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
 
-from controllers import users_controller
+from controllers import products_controller, users_controller
 from custom_exceptions.not_found import NotFoundexception
 from custom_exceptions.not_unique import UserNameTakenException
 
@@ -10,6 +10,7 @@ from fastapi import FastAPI, HTTPException, Request
 
 app = FastAPI()
 app.include_router(users_controller.router)
+app.include_router(products_controller.router)
 
 @app.exception_handler(NotFoundexception)
 async def not_found(request: Request, exc: NotFoundexception):

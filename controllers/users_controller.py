@@ -8,12 +8,12 @@ from response_handlers.user_res_handler import UserResResponseHandler
 router = APIRouter(prefix="/api/users", tags=["users"])
 
 @router.get("/")
-def get_all_users(service: UserService, mapper: ResponseMapper) -> list[UserRes]:
+async def get_all_users(service: UserService, mapper: ResponseMapper) -> list[UserRes]:
     users = service.get_all()
     return mapper.map('user_dto', users)
 
 @router.post('/')
-def create_user(user_service: UserService, req: AddUserReq, res_handler: UserResResponseHandler) -> UserRes:
+async def create_user(user_service: UserService, req: AddUserReq, res_handler: UserResResponseHandler) -> UserRes:
     try:
         user = user_service.create(req)
         return res_handler.send(user)

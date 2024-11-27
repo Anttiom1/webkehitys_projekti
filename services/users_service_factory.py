@@ -10,8 +10,8 @@ from services.user_service_sqlalchemy import UserServiceSQLAlchemy
 
 
 
-def init_user_service(db: Db):
-    return UserServiceSQLAlchemy(db)
+def init_user_service(context: Db):
+    return UserServiceSQLAlchemy(context)
 
 
 UserService = Annotated[UserServiceBase, Depends(init_user_service)]

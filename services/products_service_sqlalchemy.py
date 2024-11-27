@@ -10,3 +10,6 @@ class ProductsServiceSqlAlchemy(ProductsServiceBase):
     
     def get_products_by_category_id(self, id: int) -> list[Products]:
         return self.context.query(Products).filter(Products.CategoryId == id).all()
+    
+    def get_product_by_id(self, id: int) -> Products:
+        return self.context.query(Products).filter(Products.Id == id).first()

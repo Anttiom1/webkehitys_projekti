@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
 
-from controllers import auth_controller, categories_controller, products_controller, users_controller
+from controllers import auth_controller, carts_controller, categories_controller, products_controller, users_controller
 from custom_exceptions.not_found import NotFoundexception
 from custom_exceptions.not_unique import UserNameTakenException
 
@@ -13,6 +13,7 @@ app.include_router(users_controller.router)
 app.include_router(products_controller.router)
 app.include_router(categories_controller.router)
 app.include_router(auth_controller.router)
+app.include_router(carts_controller.router)
 
 @app.exception_handler(NotFoundexception)
 async def not_found(request: Request, exc: NotFoundexception):

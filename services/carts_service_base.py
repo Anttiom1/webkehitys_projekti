@@ -10,4 +10,17 @@ class CartsServiceBase(abc.ABC):
     
     @abc.abstractmethod
     def delete_items_from_cart(self, product_id: int, order_id: int) -> OrdersProducts:
-        raise NotImplementedError
+        raise NotImplementedError()
+    
+    @abc.abstractmethod
+    def update_items_in_cart(self, product_id: int, unit_count: int, order_id: int) -> OrdersProducts:
+        raise NotImplementedError()
+    
+    @abc.abstractmethod
+    def get_item_in_cart(self, product_id: int, order_id:int) -> OrdersProducts:
+        raise NotImplementedError()
+    
+    @abc.abstractmethod
+    def get_items_in_cart(self, order_id:int) -> list[OrdersProducts]:
+        raise NotImplementedError()
+    

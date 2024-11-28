@@ -37,22 +37,22 @@ class CartsServiceSqlAlchemy(CartsServiceBase):
         
     def update_items_in_cart(self, product_id: int, unit_count: int, order_id: int) -> OrdersProducts:
         try:
-            product = self.get_item_in_cart(product_id, order_id)
+            product = self.context.query(OrdersProducts).filter(
+                OrdersProducts.ProductId == product_id,
+                OrdersProducts.OrderId == order_id
+            ).first()
+
             if product is None:
-                raise NotFoundexception()
-            
-            updated_items_in_cart = OrdersProducts(
-                OrderId = product.OrderId,
-                ProductId = product.ProductId,
-                UnitCount = unit_count,
-                UnitPrice = product.UnitPrice
-            )
-            
+                raise NotFoundexception(f"Product with ID {product_id} in Order {order_id} not found.")
+            product.UnitCount = unit_count  
+
             self.context.commit()
-            self.context.refresh(updated_items_in_cart)
-            
-            return updated_items_in_cart
+
+            self.context.refresh(product)
+
+            return product  
+
         except Exception as e:
             self.context.rollback()
-            raise e
+            raise Exception(f"Error updating items in cart: {str(e)}")
             

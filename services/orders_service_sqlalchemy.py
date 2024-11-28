@@ -18,7 +18,7 @@ class OrdersServiceSqlAlchemy(OrdersServiceBase):
         self.context.commit()
         return order
     
-    def get_order_by_id(self, customer_id, state: str) -> Orders:
+    def get_order_by_id(self, customer_id: int, state: str) -> Orders:
         order = self.context.query(Orders).filter(Orders.CustomerId == customer_id, Orders.State == state).first()
         return order
     

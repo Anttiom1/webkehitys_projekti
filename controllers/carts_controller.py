@@ -36,5 +36,5 @@ async def update_items_in_cart(cartsService: CartsService, ordersService: Orders
         raise HTTPException(404, "user not found")
     order = ordersService.get_order_by_id(logged_in_user.Id, "cart-state")
     if order is None:
-        raise HTTPException(404, "order not found")
+        raise HTTPException(404, "orderasd not found")
     cartsService.update_items_in_cart(product_id, updateReq.unit_count, order.Id,)

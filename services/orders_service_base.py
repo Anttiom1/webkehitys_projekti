@@ -8,7 +8,7 @@ class OrdersServiceBase(abc.ABC):
         raise NotImplementedError()
     
     @abc.abstractmethod
-    def get_order_by_id(self, customer_id, state: str) -> Orders:
+    def get_order_by_id(self, customer_id: int, state: str) -> Orders:
         raise NotImplementedError()
     
     @abc.abstractmethod

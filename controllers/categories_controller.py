@@ -15,16 +15,18 @@ async def get_all_categories(service: CategoriesService, mapper: ResponseMapper)
     return mapper.map("categories_dto", categories)
 
 @router.patch("/{id}")
-async def update_category(service: CategoriesService, id: int, logged_in_user: LoggedInUser, res_handler: UserResResponseHandler, categoryUpdateReq: CategoryUpdateReq):
+async def update_category(service: CategoriesService, id: int, logged_in_user: LoggedInUser, categoryUpdateReq: CategoryUpdateReq, mapper: ResponseMapper):
     if logged_in_user.Role != "Admin":
         raise UnauthorizedException()
-    service.update_category(id, categoryUpdateReq)
+    updated_category = service.update_category(id, categoryUpdateReq)
+    return mapper.map("categories_dto", updated_category)
     
 @router.post("/")
 async def add_category(service: CategoriesService, mapper: ResponseMapper, logged_in_user: LoggedInUser, addCategoryReq: AddCategoryReq):
     if logged_in_user.Role != "Admin":
         raise UnauthorizedException()
-    service.add_category(addCategoryReq, logged_in_user.Id)
+    added_category = service.add_category(addCategoryReq, logged_in_user.Id)
+    return mapper.map("categories_dto", added_category)
 
 @router.delete("/{id}")
 async def delete_category(id:int, service: CategoriesService, logged_in_user: LoggedInUser):

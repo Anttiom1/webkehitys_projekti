@@ -4,12 +4,13 @@ from models import Orders, OrdersProducts
 from services.orders_service_factory import OrdersService
 from policies.authorize import LoggedInUser
 from services.carts_service_factory import CartsService
+from mapper.mapper import ResponseMapper
 
 
 router = APIRouter(prefix="/api/orders", tags=["orders"])
 
 @router.post("/")
-async def order_cart(ordersService: OrdersService, logged_in_user: LoggedInUser, cartsService: CartsService):
+async def order_cart(ordersService: OrdersService, logged_in_user: LoggedInUser, cartsService: CartsService, mapper: ResponseMapper):
     if logged_in_user is None:
         raise HTTPException(404, "User not found")
     
@@ -33,9 +34,11 @@ async def order_cart(ordersService: OrdersService, logged_in_user: LoggedInUser,
         )
     #Poistetaan ostoskori
     ordersService.delete_users_order(logged_in_user.Id, state="cart-state")
+    return mapper.map("orders_dto", sent_order)
 
 @router.post("/{order_id}/confirm")
-async def confirm_order(order_id: int, orderService: OrdersService, logged_in_user: LoggedInUser):
+async def confirm_order(order_id: int, orderService: OrdersService, logged_in_user: LoggedInUser, mapper: ResponseMapper ):
     if logged_in_user.Role != "Admin":
         raise UnauthorizedException()
-    orderService.confirm_order(order_id, logged_in_user.Id)
+    confirmed_order = orderService.confirm_order(order_id, logged_in_user.Id)
+    return mapper.map("orders_dto", confirmed_order)

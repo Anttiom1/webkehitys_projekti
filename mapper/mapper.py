@@ -3,11 +3,13 @@ from typing import Annotated
 from fastapi.params import Depends
 
 
+from dtos.Cart import CartRes
 from dtos.Categories import CategoriesRes
+from dtos.Orders import OrdersRes
 from dtos.Products import ProductsRes
 from dtos.Users import UserRes
 from mapper.base_profile import BaseProfile
-from mapper.profile_factory import create_categories_profile, create_products_profile, create_user_profile
+from mapper.profile_factory import create_cart_profile, create_categories_profile, create_orders_profile, create_products_profile, create_user_profile
 
 
 class Mapper:
@@ -33,7 +35,9 @@ def create_mapper() -> Mapper:
         # UserDto no tietotyyppi, johon tällä profiililla (user_dto) pystyy mäppäämään
         'user_dto': create_user_profile(UserRes),
         'products_dto': create_products_profile(ProductsRes),
-        'categories_dto': create_categories_profile(CategoriesRes)
+        'categories_dto': create_categories_profile(CategoriesRes),
+        'orders_dto': create_orders_profile(OrdersRes),
+        'cart_dto': create_cart_profile(CartRes)
     }
     return Mapper(profiles)
 

@@ -14,7 +14,7 @@ class CategoriesServiceBase(abc.ABC):
         raise NotImplementedError()
     
     @abc.abstractmethod
-    def add_category(self, addCategoryReq: AddCategoryReq, user_id: int):
+    def add_category(self, addCategoryReq: AddCategoryReq, user_id: int) -> Categories:
         raise NotImplementedError
     
     @abc.abstractmethod
